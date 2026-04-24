@@ -1,4 +1,4 @@
-from src.textnode import TextNode, TextType
+from src.nodes.textnode import TextNode, TextType
 from src.functions.split_nodes_delimiter import split_nodes_delimiter
 
 import unittest

@@ -1,4 +1,4 @@
-from src.leafnode import LeafNode
+from src.nodes.leafnode import LeafNode
 
 import unittest
 
