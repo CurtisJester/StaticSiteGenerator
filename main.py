@@ -1,9 +1,8 @@
-from nodes.textnode import TextNode, TextType
-from logger import get_logger
+from src.logger import get_logger
 from pathlib import Path
 from os import path, listdir, makedirs
 from shutil import copy, rmtree
-
+from src.functions.generate_page import generate_page
 from collections import deque
 
 
@@ -13,6 +12,7 @@ def main():
     home = Path("/home/cjester/Code/StaticSiteGenerator")
     public = home / "public"
     static = home / "static"
+    content_path = static / "content"
 
     logger.info(f"Init paths home, public, static:\n{home}\n{public}\n{static}")
 
@@ -51,11 +51,13 @@ def main():
             logger.info(f"relative directory path: {relative_dir}")
 
             # check dir portion exists
-            if not path.exists(relative_dir):
+            if not path.exists(relative_dir) and relative_dir != "":
                 logger.info(f"relative_dir does not exist: {relative_dir}")
                 subdirs = relative_dir.split("/")
 
                 for dir in subdirs:
+                    if dir == "":
+                        continue
                     logger.info(f"Attempting to create subdir: {dir} within public.")
                     makedirs(public / dir, exist_ok=True)
 
@@ -64,6 +66,13 @@ def main():
             logger.info(f"File copied from {file_path} to {destination}")
         logger.info(f"Fully iterated over current dir: {current_dir}")
     logger.info("Finished queue of directories.")
+
+    generate_page(
+        content_path / "index.md",
+        home / "template.html",
+        public / "content/index.html",
+        logger,
+    )
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ class BlockType(Enum):
 
 
 def block_to_block_type(block) -> BlockType:
-    if block.startswith("# "):
+    if block.startswith("#"):
         return BlockType.HEADING
 
     if block.startswith("```\n") and block[-3:] == "```":
