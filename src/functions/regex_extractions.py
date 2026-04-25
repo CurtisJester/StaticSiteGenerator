@@ -7,5 +7,5 @@ def extract_markdown_images(text):
 
 
 def extract_markdown_links(text):
-    pattern = re.compile(r"[^!]\[(.*?)\]\((.*?)\)")
+    pattern = re.compile(r"[^!]?\[(.*?)\]\((.*?)\)")
     return re.findall(pattern, text)

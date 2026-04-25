@@ -1,4 +1,11 @@
 class HTMLNode:
+    """
+    :param tag: The tag with which to surround the HTML node
+    :param value: The value of the node, the text inside the tags.
+    :param children: The list of children nodes (LeafNodes)
+    :param props: The dictionary of props for the HTML Node
+    """
+
     def __init__(self, tag=None, value=None, children=None, props=None) -> None:
         self.tag = tag
         self.value = value

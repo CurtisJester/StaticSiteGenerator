@@ -17,7 +17,6 @@ class LeafNode(HTMLNode):
         return fmt_str.format(self.tag, self.value, self.props)
 
     def __eq__(self, other) -> bool:
-        # Same EQ method as HTMLNode but removes Children check
         if (
             self.tag != other.tag
             or self.value != other.value

@@ -3,7 +3,7 @@ from src.nodes.htmlnode import HTMLNode
 
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None) -> None:
-        super().__init__(tag, None, children, props)
+        super().__init__(tag=tag, value=None, children=children, props=props)
 
     def __eq__(self, other) -> bool:
         if (
@@ -18,7 +18,7 @@ class ParentNode(HTMLNode):
         if not self.tag:
             raise ValueError("parent node has no tag")
         if self.children == []:
-            raise ValueError("parent cannot have zero children")
+            raise ValueError(f"parent ({self.tag}) cannot have zero children")
         fmt_str = "<{tag}>{children_vals}</{tag}>"
         children_repr = ""
         for child in self.children:
