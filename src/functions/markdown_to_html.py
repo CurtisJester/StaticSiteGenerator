@@ -53,14 +53,16 @@ def markdown_to_html(markdown) -> HTMLNode:
         match block_type:
             case BlockType.PARAGRAPH:
                 children = children_html_nodes_from_block(block.replace("\n", " "))
-                html_nodes.append(parent_from_children(tag="p", children=children))
+                html_nodes.append(
+                    parent_node_from_children_nodes(tag="p", children=children)
+                )
             case BlockType.CODE:
                 code_html_node = html_node_from_code_block(block)
                 html_nodes.append(ParentNode(tag="pre", children=[code_html_node]))
             case BlockType.QUOTE:
                 children = children_html_nodes_from_block(block)
                 html_nodes.append(
-                    parent_from_children(tag="blockquote", children=children)
+                    parent_node_from_children_nodes(tag="blockquote", children=children)
                 )
             case BlockType.UNORDERED_LIST:
                 children = children_text_nodes_from_block(block)
@@ -68,14 +70,18 @@ def markdown_to_html(markdown) -> HTMLNode:
                     text_node_to_list_item(child_text_node)
                     for child_text_node in children
                 ]
-                html_nodes.append(parent_from_children(tag="ul", children=children))
+                html_nodes.append(
+                    parent_node_from_children_nodes(tag="ul", children=children)
+                )
             case BlockType.ORDERED_LIST:
                 children = children_text_nodes_from_block(block)
                 children = [
                     text_node_to_list_item(child_text_node)
                     for child_text_node in children
                 ]
-                html_nodes.append(parent_from_children(tag="ol", children=children))
+                html_nodes.append(
+                    parent_node_from_children_nodes(tag="ol", children=children)
+                )
             case BlockType.HEADING:
                 text_node = text_to_textnodes(block)[0]
                 html_nodes.append(text_node_to_heading_html_node(text_node))

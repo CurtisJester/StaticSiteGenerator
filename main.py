@@ -70,7 +70,7 @@ def main():
     generate_page(
         content_path / "index.md",
         home / "template.html",
-        public / "content/index.html",
+        public / "index.html",
         logger,
     )
 
