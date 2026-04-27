@@ -67,7 +67,7 @@ def list_block_to_parent_html_node(block, list_type: BlockType) -> ParentNode:
         if list_type == BlockType.ORDERED_LIST:
             tokens = fixed_line.split(" ")
             # This should remove the '1. ' -> '999. ' etc,
-            fixed_line = "".join(tokens[1:])
+            fixed_line = " ".join(tokens[1:])
         if list_type == BlockType.UNORDERED_LIST:
             fixed_line = fixed_line[1:]
             if fixed_line.startswith(" "):

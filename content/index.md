@@ -23,7 +23,7 @@ Here's the deal, **I like Tolkien**.
 
 ## My favorite characters (in order)
 
-1. Gandalf
+1. Gandalf (of course)
 2. Bilbo
 3. Sam
 4. Glorfindel
