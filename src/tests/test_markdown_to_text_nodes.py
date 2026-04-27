@@ -1,7 +1,7 @@
 from src.functions.markdown_to_html import markdown_to_html
 from src.functions.conversions.markdown_to_nodes import markdown_to_text_nodes
 from src.nodes.textnode import TextNode, TextType
-
+from src.const import LOGGING
 from src.utility import logger
 from src.utility.logger import get_logger
 import unittest
@@ -10,7 +10,7 @@ import unittest
 class TestMarkdownToTextNodes(unittest.TestCase):
     def __init__(self, methodName: str = "runTest") -> None:
         super().__init__(methodName)
-        self.logger = get_logger("markdown_to_nodes.log")
+        self.logger = get_logger("markdown_to_nodes.log", LOGGING)
 
     def test_paragraphs(self):
         md = """This is **bolded** paragraph"""
@@ -25,6 +25,10 @@ class TestMarkdownToTextNodes(unittest.TestCase):
             ],
         )
 
+
+if __name__ == "__main__":
+    unittest.main()
+
     def test_codeblock(self):
         md = """
 ```
@@ -36,12 +40,9 @@ the **same** even with inline stuff
         self.assertListEqual(
             text_nodes,
             [
-                TextNode(text="This is ", text_type=TextType.TEXT),
-                TextNode(text="bolded", text_type=TextType.BOLD),
-                TextNode(text=" paragraph", text_type=TextType.TEXT),
+                TextNode(
+                    text="This is text that _should_ remain\nthe **same** even with inline stuff",
+                    text_type=TextType.CODE,
+                ),
             ],
         )
-
-
-if __name__ == "__main__":
-    unittest.main()

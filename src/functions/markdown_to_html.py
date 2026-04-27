@@ -12,6 +12,7 @@ from src.functions.node_to_html import (
     text_node_to_heading_html_node,
     text_node_to_list_item,
     text_node_to_html_node,
+    text_nodes_to_heading_html_node,
     text_nodes_to_list_item,
     text_to_textnodes,
     text_to_children,
@@ -71,7 +72,7 @@ def list_block_to_parent_html_node(block, list_type: BlockType) -> ParentNode:
             fixed_line = fixed_line[1:]
             if fixed_line.startswith(" "):
                 fixed_line = fixed_line[1:]
-        print("DEBUG == Line to Fixed_line == ", line, "==>", fixed_line)
+        # print("DEBUG == Line to Fixed_line == ", line, "==>", fixed_line)
         line_text_nodes = text_to_textnodes(fixed_line)
         list_item_nodes.append(text_nodes_to_list_item(line_text_nodes))
 
@@ -90,7 +91,6 @@ def markdown_to_html(markdown) -> HTMLNode:
         if len(block) == 0:
             continue
 
-        print(block, " ==> DEBUG ==> ", block_type)
         match block_type:
             case BlockType.PARAGRAPH:
                 children = children_html_nodes_from_block(block.replace("\n", " "))
@@ -111,7 +111,10 @@ def markdown_to_html(markdown) -> HTMLNode:
                     list_block_to_parent_html_node(block, BlockType.ORDERED_LIST)
                 )
             case BlockType.HEADING:
-                text_node = text_to_textnodes(block)[0]
-                html_nodes.append(text_node_to_heading_html_node(text_node))
+                # print(f"DEBUG -- Heading block({block})")
+                text_nodes = text_to_textnodes(block)
+                # print(text_nodes)
+                # print("DEBUG -- Previous print was textNodes")
+                html_nodes.append(text_nodes_to_heading_html_node(text_nodes))
 
     return ParentNode(tag="div", children=html_nodes)

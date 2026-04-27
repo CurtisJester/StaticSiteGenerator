@@ -54,6 +54,26 @@ def text_to_textnodes(text) -> list[TextNode]:
     return new_nodes
 
 
+def text_nodes_to_heading_html_node(text_nodes: list[TextNode]) -> ParentNode:
+    """
+    Given a TextNode representing a Header, return a LeafNode that contains
+    the correct tag (h1, ... h6) depending on the number of # symbols seen.
+    """
+    tag = "h{}"
+    heading_num = text_nodes[0].text.count("#")
+    if heading_num < 1 or heading_num > 6:
+        raise ValueError(f"Cannot format Heading with len of {heading_num}")
+
+    prefix = "#" * heading_num
+    prefix += " "
+    # In-place fix
+    text_nodes[0].text = text_nodes[0].text.replace(prefix, "")
+    children = [text_node_to_html_node(text_node) for text_node in text_nodes]
+
+    tag = tag.format(str(heading_num))
+    return ParentNode(tag=tag, children=children)
+
+
 def text_node_to_heading_html_node(text_node: TextNode) -> LeafNode:
     """
     Given a TextNode representing a Header, return a LeafNode that contains

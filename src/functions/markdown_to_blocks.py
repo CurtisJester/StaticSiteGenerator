@@ -1,4 +1,5 @@
 from enum import Enum
+from re import match
 
 
 class BlockType(Enum):
@@ -25,6 +26,10 @@ def block_to_block_type(block) -> BlockType:
         return BlockType.QUOTE
 
     if block.startswith("1."):
+        re = r"\d+\."
+        for line in block.split("\n"):
+            if not match(re, line):
+                return BlockType.PARAGRAPH
         return BlockType.ORDERED_LIST
 
     if block.startswith("-"):

@@ -31,7 +31,7 @@ def block_to_block_type(block) -> BlockType:
                 return BlockType.PARAGRAPH
         return BlockType.QUOTE
 
-    if block.startswith("."):
+    if block.startswith("1."):
         lines = block.split("\n")
         for line in lines:
             if not line.startswith("."):
@@ -74,7 +74,7 @@ def markdown_to_text_nodes(markdown, logger: Logger) -> list[TextNode]:
     for block_type, block in block_type_pairs:
         # TODO: determine if the block being 0 len means it needs a newline / space added...
         if len(block) == 0:
-            print("DEBUG -- block is len 0 --> context", blocks)
+            # print("DEBUG -- block is len 0 --> context", blocks)
             continue
 
         logger.info(f"Block: {block}")

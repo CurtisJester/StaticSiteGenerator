@@ -53,11 +53,11 @@ This is the same paragraph on a new line
         self.assertEqual(BlockType.QUOTE, block_to_block_type(block))
 
     def test_block_to_ordered_list(self):
-        block = ". One of my\n. Favorite things."
+        block = "1. One of my\n2. Favorite things."
         self.assertEqual(BlockType.ORDERED_LIST, block_to_block_type(block))
 
     def test_block_to_bad_ordered_list(self):
-        block = ". One of my\nFavorite things\n. Is chocolate"
+        block = "1. One of my\nFavorite things\n2. Is chocolate"
         self.assertEqual(BlockType.PARAGRAPH, block_to_block_type(block))
 
     def test_block_to_unordered_list(self):

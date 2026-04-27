@@ -1,15 +1,14 @@
 import logging
-from pathlib import Path
 
 
-def get_logger(filename):
+def get_logger(filename, logging_path):
     logger = logging.getLogger()
 
-    file_path = Path("/home/cjester/Code/StaticSiteGenerator/logging") / filename
+    file_path = logging_path / filename
     file_handler = logging.FileHandler(file_path)
     file_handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter(
-        fmt="%(asctime)s - %(levelname)s - %(name)s - %(message)s"
+        fmt="%(asctime)s - %(levelname)s - %(funcName)20s() - %(message)s"
     )
     file_handler.setFormatter(formatter)
 
