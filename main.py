@@ -4,9 +4,15 @@ from src.const import PUBLIC, STATIC, LOGGING
 from src.utility.logger import get_logger
 
 from pathlib import Path
+from sys import argv
 
 
 def main():
+    if len(argv) == 0:
+        basepath = "/"
+    else:
+        basepath = argv[0]
+
     home = Path("/home/cjester/Code/boot.dev/StaticSiteGenerator")
     content_dir_path = home / "content"
     template_file_path = home / "template.html"
