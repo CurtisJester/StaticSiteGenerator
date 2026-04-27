@@ -110,8 +110,8 @@ def generate_page(
     logger.info(f"Title ({title}) extracted and node generated.")
     page_html = template.replace("{{ Title }}", title)
     page_html = page_html.replace("{{ Content }}", node.to_html())
-    page_html = page_html.replace('href="/', f'href="{basepath}')
-    page_html = page_html.replace('src="/', f'src="{basepath}')
+    page_html = page_html.replace('href="/', f'href="{basepath}/')
+    page_html = page_html.replace('src="/', f'src="{basepath}/')
 
     # Content is staged, destination path check
     # if PUBLIC != Path(path.commonpath([dest_path, PUBLIC])):
