@@ -17,14 +17,14 @@ def main():
     content_dir_path = home / "content"
     template_file_path = home / "template.html"
     logger = get_logger("dir_operations.log", LOGGING)
-
+    docs = home / "docs"
     prep_public_dir(logger)
     copy_all(STATIC, PUBLIC, logger)
 
     generate_pages_recursively(
         dir_path_content=content_dir_path,
         template_path=template_file_path,
-        dest_dir_path=PUBLIC,
+        dest_dir_path=docs,
         basepath=basepath,
         logger=logger,
     )

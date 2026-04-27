@@ -17,15 +17,6 @@ def generate_pages_recursively(
     logger,
 ):
     ## VALIDATIONS
-    if not dir_path_content or not template_path or not dest_dir_path:
-        raise Exception(
-            "dir_path_content, template_path, and dest_dir_path paths are all required."
-        )
-
-    if Path(path.commonpath([PUBLIC, dest_dir_path])) != PUBLIC:
-        raise Exception(
-            f"Dest dir path: {dest_dir_path} is not common to Public: {PUBLIC}"
-        )
 
     if not path.isdir(dir_path_content):
         raise Exception(f"Content Dir path is not a dir: {dir_path_content}")
@@ -123,10 +114,10 @@ def generate_page(
     page_html = page_html.replace('src="/', f'src="{basepath}')
 
     # Content is staged, destination path check
-    if PUBLIC != Path(path.commonpath([dest_path, PUBLIC])):
-        raise Exception(
-            f"Dest path ({dest_path}) is not common to public subdir: {PUBLIC}"
-        )
+    # if PUBLIC != Path(path.commonpath([dest_path, PUBLIC])):
+    #    raise Exception(
+    #        f"Dest path ({dest_path}) is not common to public subdir: {PUBLIC}"
+    #    )
 
     logger.info("Path is sub-path of project path, checking directory exists")
     dest_dir, filename = path.split(dest_path)
