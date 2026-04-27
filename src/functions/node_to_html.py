@@ -6,7 +6,7 @@ from src.functions.split_nodes_extractions import split_nodes_image, split_nodes
 from src.functions.split_nodes_delimiter import split_nodes_delimiter
 
 
-def parent_from_children(tag: str, children: list[LeafNode], props=None):
+def parent_node_from_children_nodes(tag: str, children: list[LeafNode], props=None):
     """
     Given a tag, props, and a list of children, return a ParentNode
     """
@@ -77,6 +77,17 @@ def text_node_to_list_item(text_node: TextNode) -> LeafNode:
     return LeafNode(tag="li", value=text_node.text)
 
 
+def text_nodes_to_list_item(text_nodes: list[TextNode]) -> ParentNode:
+    """
+    Given a list of text nodes, separate them by a space and create a single
+    LeafNode
+    """
+    leaf_nodes = []
+    for text_node in text_nodes:
+        leaf_nodes.append(text_node_to_html_node(text_node))
+    return ParentNode(tag="li", children=leaf_nodes)
+
+
 def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     """
     Given a TextNode return a LeafNode based on the type.
@@ -104,5 +115,3 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
                 value=text_node.text,
                 props={"src": text_node.url, "alt": text_node.text},
             )
-        case _:
-            raise ValueError(f"node type ({text_node.text_type}) not supported")

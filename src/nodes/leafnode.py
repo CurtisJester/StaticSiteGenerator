@@ -10,7 +10,17 @@ class LeafNode(HTMLNode):
             raise ValueError("leaf node has no value")
         if not self.tag:
             return self.value
-        return f"<{self.tag}>{self.value}</{self.tag}>"
+
+        props_str = ""
+        if self.props:
+            props_str += " "
+            for k, v in self.props.items():
+                props_str += f'{k}="{v}" '
+            props_str = props_str.rstrip()
+
+        if self.tag == "img":
+            return f"<{self.tag}{props_str}>"
+        return f"<{self.tag}{props_str}>{self.value}</{self.tag}>"
 
     def __repr__(self) -> str:
         fmt_str = "LeafNode(Tag={}, Value={}, Props={})"

@@ -1,4 +1,4 @@
-from src.logger import get_logger
+from src.utility.logger import get_logger
 from pathlib import Path
 from os import path, listdir, makedirs
 from shutil import copy, rmtree
@@ -32,6 +32,8 @@ def main():
     dir_queue = deque()
     dir_queue.append(static)
 
+    # TODO: Redo the relative system. The file structure recursion is getting me here.
+
     while dir_queue:
         current_dir = dir_queue.pop()
         logger.info(f"current_dir: {current_dir}")
@@ -58,7 +60,7 @@ def main():
                 for dir in subdirs:
                     if dir == "":
                         continue
-                    logger.info(f"Attempting to create subdir: {dir} within public.")
+                    logger.info(f"Creating subdir: {dir} within public.")
                     makedirs(public / dir, exist_ok=True)
 
             # Now dir exists (if it didnt before) copy file to public on the relative path

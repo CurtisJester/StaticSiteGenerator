@@ -36,6 +36,7 @@ def generate_page(from_path, template_path, dest_path, logger: Logger):
     node = markdown_to_html(markdown)
     logger.info(f"Title ({title}) extracted and node generated.")
     page_html = template.replace("{{ Title }}", title)
+
     page_html = page_html.replace("{{ Content }}", node.to_html())
 
     # Content is staged, destination path check
@@ -51,7 +52,7 @@ def generate_page(from_path, template_path, dest_path, logger: Logger):
 
     logger.info("Path is sub-path of project path, checking directory exists")
     if not path.exists(destination_path):
-        logger.info("Creating directory or directories")
+        logger.info(f"Creating directory or directories: {destination_path}")
         makedirs(destination_path)
 
     logger.info(f"Writing updated content to file ({dest_path})")
