@@ -11,7 +11,7 @@ def main():
     if len(argv) == 0:
         basepath = Path("/")
     else:
-        basepath = Path(argv[0])
+        basepath = Path(argv[1])
 
     home = Path("/home/cjester/Code/boot.dev/StaticSiteGenerator")
     content_dir_path = home / "content"
