@@ -9,9 +9,9 @@ from sys import argv
 
 def main():
     if len(argv) == 0:
-        basepath = "/"
+        basepath = Path("/")
     else:
-        basepath = argv[0]
+        basepath = Path(argv[0])
 
     home = Path("/home/cjester/Code/boot.dev/StaticSiteGenerator")
     content_dir_path = home / "content"
@@ -25,6 +25,7 @@ def main():
         dir_path_content=content_dir_path,
         template_path=template_file_path,
         dest_dir_path=PUBLIC,
+        basepath=basepath,
         logger=logger,
     )
     # generate_page(index_md_path, template_path, public_index_path, logger)

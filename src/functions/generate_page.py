@@ -10,7 +10,11 @@ from collections import deque
 
 
 def generate_pages_recursively(
-    dir_path_content: Path, template_path: Path, dest_dir_path: Path, logger
+    dir_path_content: Path,
+    template_path: Path,
+    dest_dir_path: Path,
+    basepath: Path,
+    logger,
 ):
     ## VALIDATIONS
     if not dir_path_content or not template_path or not dest_dir_path:
@@ -65,7 +69,11 @@ def generate_pages_recursively(
             if file[-2:] == "md":
                 new_filename = file.replace("md", "html")
                 generate_page(
-                    file_path, template_path, new_dest_dir_path / new_filename, logger
+                    file_path,
+                    template_path,
+                    new_dest_dir_path / new_filename,
+                    basepath,
+                    logger,
                 )
                 continue
 
@@ -73,7 +81,13 @@ def generate_pages_recursively(
         logger.info(f"Processed all files in {current_dir}")
 
 
-def generate_page(from_path, template_path, dest_path, logger: Logger):
+def generate_page(
+    from_path: Path,
+    template_path: Path,
+    dest_path: Path,
+    basepath: Path,
+    logger: Logger,
+):
     if not from_path or not template_path or not dest_path:
         raise Exception("from, template, and destination paths are all required.")
 
@@ -104,8 +118,9 @@ def generate_page(from_path, template_path, dest_path, logger: Logger):
     node = markdown_to_html(markdown)
     logger.info(f"Title ({title}) extracted and node generated.")
     page_html = template.replace("{{ Title }}", title)
-
     page_html = page_html.replace("{{ Content }}", node.to_html())
+    page_html = page_html.replace('href="/', f'href="{basepath}')
+    page_html = page_html.replace('src="/', f'src="{basepath}')
 
     # Content is staged, destination path check
     if PUBLIC != Path(path.commonpath([dest_path, PUBLIC])):
